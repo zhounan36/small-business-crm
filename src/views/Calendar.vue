@@ -284,4 +284,9 @@ watch(() => meetingsStore.meetings, () => {
 .fc .fc-event:hover {
   @apply opacity-90;
 }
+
+.fc-toolbar-chunk {
+    margin-right: 10px; /* Add space to the right of each button */
+}
+
 </style>
