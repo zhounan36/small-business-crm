@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flex justify-between items-center mb-6">
-      <h1 class="text-2xl font-bold text-gray-900">Tasks</h1>
+      <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Tasks</h1>
       <button @click="showAddModal = true" class="btn-primary">
         Add Task
       </button>
@@ -11,7 +11,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       <!-- Pending Tasks -->
       <div class="card p-6">
-        <h2 class="text-lg font-semibold text-gray-900 mb-4">Pending Tasks</h2>
+        <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Pending Tasks</h2>
         <div class="space-y-4">
           <div v-for="task in tasksStore.pendingTasks" :key="task.id" 
                class="group flex items-start p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-200">
@@ -51,7 +51,7 @@
 
       <!-- Completed Tasks -->
       <div class="card p-6">
-        <h2 class="text-lg font-semibold text-gray-900 mb-4">Completed Tasks</h2>
+        <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Completed Tasks</h2>
         <div class="space-y-4">
           <div v-for="task in tasksStore.completedTasks" :key="task.id" 
                class="group flex items-start p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-200">

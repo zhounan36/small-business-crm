@@ -139,9 +139,14 @@ const calendarOptions = {
   plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
   initialView: 'dayGridMonth',
   headerToolbar: {
-    left: 'prev,next today',
-    center: 'title',
-    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+    left: '', // No content on the left
+    center: 'title', // Title (Month and Year) at the top center
+    right: '' // No content on the right
+  },
+  footerToolbar: {
+    left: 'dayGridMonth,timeGridWeek,timeGridDay', // View buttons (Month/Week/Day) on top of arrows
+    center: '', // Leave the center empty
+    right: 'prev,next today' // Navigation arrows (Prev/Next/Today) on the bottom right
   },
   events: meetingsStore.getCalendarEvents,
   editable: true,
@@ -152,7 +157,9 @@ const calendarOptions = {
   select: handleDateSelect,
   eventDrop: handleEventDrop,
   eventResize: handleEventResize
-}
+};
+
+
 
 function handleEventClick(info) {
   const meeting = meetingsStore.meetings.find(m => m.id === info.event.id)
