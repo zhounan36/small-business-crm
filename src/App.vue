@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gray-50 dark:bg-dark-50 transition-colors duration-200">
+  <div class="min-h-screen bg-violet-200 dark:bg-dark-50 transition-colors duration-200">
     <!-- Navigation -->
     <nav class="bg-white dark:bg-dark-100 border-b border-gray-200 dark:border-dark-200 transition-colors duration-200 relative z-10">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
