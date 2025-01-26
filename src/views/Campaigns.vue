@@ -217,6 +217,11 @@
                     <input type="number" v-model="campaignForm.budget" min="0" step="0.01" required class="input-field">
                   </div>
 
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Total Conversions</label>
+                    <input type="number" v-model="campaignForm.metrics.conversions" min="0" class="input-field" />
+                  </div>
+
                   <div class="mt-6 flex justify-end space-x-3">
                     <button type="button" @click="closeModal" class="btn-secondary">
                       Cancel
@@ -256,7 +261,11 @@ const campaignForm = ref({
   status: 'draft',
   startDate: '',
   endDate: '',
-  budget: 0
+  budget: 0,
+  metrics: {
+    spent: 0,
+    conversions: 0
+  }
 })
 
 const calculateCPC = computed(() => {
@@ -306,6 +315,7 @@ const deleteCampaign = (id) => {
 }
 
 const saveCampaign = () => {
+  campaignForm.value.metrics.spent = campaignForm.value.budget
   if (editingCampaign.value) {
     campaignsStore.updateCampaign(editingCampaign.value.id, campaignForm.value)
   } else {
@@ -324,7 +334,11 @@ const closeModal = () => {
     status: 'draft',
     startDate: '',
     endDate: '',
-    budget: 0
+    budget: 0,
+    metrics: {
+    spent: 0,
+    conversions: 0
+  }
   }
 }
 
