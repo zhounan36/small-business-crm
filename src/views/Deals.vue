@@ -23,14 +23,14 @@
           <tbody class="bg-white divide-y divide-gray-200">
             <tr v-for="deal in dealsStore.deals" :key="deal.id"
                 class="hover:bg-gray-50 transition-colors duration-200">
-              <td class="table-cell font-medium">{{ deal.name }}</td>
-              <td class="table-cell">${{ deal.value.toLocaleString() }}</td>
-              <td class="table-cell">
+              <td class="table-cell font-medium dark:text-black">{{ deal.name }}</td>
+              <td class="table-cell dark:text-black">${{ deal.value.toLocaleString() }}</td>
+              <td class="table-cell dark:text-black">
                 <span :class="getStatusClass(deal.status)" class="badge">
                   {{ deal.status }}
                 </span>
               </td>
-              <td class="table-cell text-gray-600">{{ deal.contact }}</td>
+              <td class="table-cell text-gray-600 dark:text-black">{{ deal.contact }}</td>
               <td class="table-cell text-right">
                 <button @click="editDeal(deal)" 
                         class="text-blue-600 hover:text-blue-800 font-medium mr-3">

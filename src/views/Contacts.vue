@@ -23,10 +23,10 @@
           <tbody class="bg-white divide-y divide-gray-200">
             <tr v-for="contact in contactsStore.contacts" :key="contact.id"
                 class="hover:bg-gray-50 transition-colors duration-200">
-              <td class="table-cell font-medium">{{ contact.name }}</td>
-              <td class="table-cell text-gray-600">{{ contact.email }}</td>
-              <td class="table-cell text-gray-600">{{ contact.phone }}</td>
-              <td class="table-cell text-gray-600">{{ contact.company }}</td>
+              <td class="table-cell font-medium dark:text-black">{{ contact.name }}</td>
+              <td class="table-cell text-gray-600 dark:text-black">{{ contact.email }}</td>
+              <td class="table-cell text-gray-600 dark:text-black">{{ contact.phone }}</td>
+              <td class="table-cell text-gray-600 dark:text-black">{{ contact.company }}</td>
               <td class="table-cell text-right">
                 <button @click="editContact(contact)" 
                         class="text-blue-600 hover:text-blue-800 font-medium mr-3">
