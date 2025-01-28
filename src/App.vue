@@ -99,6 +99,7 @@ const navigation = [
   { name: 'Contacts', href: '/contacts' },
   { name: 'Leads', href: '/leads' },
   { name: 'Deals', href: '/deals' },
+  { name: 'Opportunities', href: '/opportunities' },
   { name: 'Tasks', href: '/tasks' },
   { name: 'Campaigns', href: '/campaigns' },
   { name: 'Notes', href: '/notes' },

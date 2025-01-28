@@ -3,7 +3,7 @@
     <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-8">Dashboard</h1>
     
     <!-- Summary Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-4">
       <!-- Existing summary cards... -->
       <div class="dashboard-card">
         <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Total Contacts</h3>
@@ -87,6 +87,59 @@
         </div>
       </div>
     </div>
+
+    <!-- Opportunities Overview -->
+    <div class="card p-6 dark:bg-dark-100 mb-4">
+      <div class="flex justify-between items-center">
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Opportunities Overview</h3>
+        <RouterLink to="/opportunities" class="text-sm text-violet-600 dark:text-violet-400 hover:text-violet-700 dark:hover:text-violet-300 font-medium">
+          View All
+        </RouterLink>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- Total Opportunities -->
+        <div class="flex justify-between items-center p-4 bg-gray-50 dark:bg-dark-200 rounded-lg hover:bg-yellow-100 dark:hover:bg-dark-300 transition-all duration-200">
+          <div>
+            <p class="ext-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Total Opportunities</p>
+            <p class="text-3xl font-bold text-fuchsia-600 dark:text-fuchsia-400">{{ opportunitiesStore.totalOpportunities }}</p>
+          </div>
+          <div class="text-gray-600 dark:text-gray-400">
+            <i class="fa fa-briefcase"></i> <!-- Icon for Opportunities -->
+          </div>
+        </div>
+        <!-- High Priority Opportunities -->
+        <div class="flex justify-between items-center p-4 bg-yellow-50 dark:bg-dark-200 rounded-lg hover:bg-yellow-100 dark:hover:bg-dark-300 transition-all duration-200">
+          <div>
+            <p class="ext-sm font-medium text-gray-500 dark:text-gray-400 mb-1">High Priority Opportunities</p>
+            <p class="text-3xl font-bold text-green-600 dark:text-green-400">{{ opportunitiesStore.highPriority }}</p>
+          </div>
+          <div class="text-yellow-600 dark:text-yellow-400">
+            <i class="fa fa-exclamation-triangle"></i> <!-- Icon for High Priority -->
+          </div>
+        </div>
+        <!-- Average Opportunity Value -->
+        <div class="flex justify-between items-center p-4 bg-green-50 dark:bg-dark-200 rounded-lg hover:bg-green-100 dark:hover:bg-dark-300 transition-all duration-200">
+          <div>
+            <p class="ext-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Average Opportunity Value</p>
+            <p class="text-3xl font-bold text-blue-600 dark:text-blue-400">${{ opportunitiesStore.averageOpportunityValue }}</p>
+          </div>
+          <div class="text-green-600 dark:text-green-400">
+            <i class="fa fa-dollar-sign"></i> <!-- Icon for Average Value -->
+          </div>
+        </div>
+        <!-- Win Rate -->
+        <div class="flex justify-between items-center p-4 bg-blue-50 dark:bg-dark-200 rounded-lg hover:bg-blue-100 dark:hover:bg-dark-300 transition-all duration-200">
+          <div>
+            <p class="ext-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Win Rate</p>
+            <p class="text-3xl font-bold text-yellow-600 dark:text-yellow-400">{{ opportunitiesStore.winRate }}%</p>
+          </div>
+          <div class="text-blue-600 dark:text-blue-400">
+            <i class="fa fa-trophy"></i> <!-- Icon for Win Rate -->
+          </div>
+        </div>
+      </div>
+    </div>
+
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
       <!-- This Week's Meetings -->
@@ -206,6 +259,7 @@ import { useTasksStore } from '../stores/tasks'
 import { useLeadsStore } from '../stores/leads'
 import { useCampaignsStore } from '../stores/campaigns'
 import { useMeetingsStore } from '../stores/meetings'
+import { useOpportunitiesStore } from '../stores/opportunities'
 import { RouterLink } from 'vue-router'
 import { format } from 'date-fns'
 
@@ -215,6 +269,7 @@ const tasksStore = useTasksStore()
 const leadsStore = useLeadsStore()
 const campaignsStore = useCampaignsStore()
 const meetingsStore = useMeetingsStore()
+const opportunitiesStore  = useOpportunitiesStore()
 
 const wonDeals = computed(() => {
   return dealsStore.deals.filter(deal => deal.status === 'won').length

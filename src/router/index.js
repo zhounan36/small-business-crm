@@ -3,6 +3,7 @@ import Dashboard from '../views/Dashboard.vue'
 import Contacts from '../views/Contacts.vue'
 import Leads from '../views/Leads.vue'
 import Deals from '../views/Deals.vue'
+import Opportunities from '../views/Opportunities.vue'
 import Tasks from '../views/Tasks.vue'
 import Campaigns from '../views/Campaigns.vue'
 import Notes from '../views/Notes.vue'
@@ -30,6 +31,11 @@ const router = createRouter({
       path: '/deals',
       name: 'Deals',
       component: Deals
+    },
+    {
+      path: '/opportunities',
+      name: 'Opportunities',
+      component: Opportunities
     },
     {
       path: '/tasks',
