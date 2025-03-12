@@ -7,7 +7,7 @@
           <!-- Logo -->
           <div class="flex items-center">
             <div class="flex-shrink-0">
-              <h1 class="text-xl font-bold text-violet-600 dark:text-violet-400">Small Business CRM</h1>
+              <h1 class="text-xl font-bold text-violet-600 dark:text-violet-400">CRM</h1>
             </div>
           </div>
           <!-- Hamburger menu for mobile -->
@@ -95,15 +95,15 @@ import { useThemeStore } from './stores/theme'
 const themeStore = useThemeStore()
 
 const navigation = [
-  { name: 'Dashboard', href: '/' },
-  { name: 'Contacts', href: '/contacts' },
-  { name: 'Leads', href: '/leads' },
-  { name: 'Deals', href: '/deals' },
-  { name: 'Opportunities', href: '/opportunities' },
-  { name: 'Tasks', href: '/tasks' },
-  { name: 'Campaigns', href: '/campaigns' },
-  { name: 'Notes', href: '/notes' },
-  { name: 'Calendar', href: '/calendar' }
+  { name: '控制面板', href: '/' },
+  { name: '联系人', href: '/contacts' },
+  { name: '线索', href: '/leads' },
+  { name: '交易', href: '/deals' },
+  { name: '商机', href: '/opportunities' },
+  { name: '任务', href: '/tasks' },
+  { name: '活动', href: '/campaigns' },
+  { name: '笔记', href: '/notes' },
+  { name: '日历', href: '/calendar' }
 ]
 
 // Reactive state for mobile menu

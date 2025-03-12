@@ -1,31 +1,31 @@
 <template>
   <div>
     <div class="flex justify-between items-center mb-6">
-      <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Leads</h1>
+      <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">潜在客户</h1>
       <button @click="showAddModal = true" class="btn-primary">
-        Add Lead
+        添加潜在客户
       </button>
     </div>
 
     <!-- Stats -->
     <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
       <div class="dashboard-card">
-        <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Total Leads</h3>
+        <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">总潜在客户</h3>
         <p class="text-3xl font-bold text-violet-600 dark:text-violet-400">{{ leadsStore.totalLeads }}</p>
       </div>
       
       <div class="dashboard-card">
-        <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Active Leads</h3>
+        <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">活跃潜在客户</h3>
         <p class="text-3xl font-bold text-emerald-600 dark:text-emerald-400">{{ leadsStore.activeLeads }}</p>
       </div>
       
       <div class="dashboard-card">
-        <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Conversion Rate</h3>
+        <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">转化率</h3>
         <p class="text-3xl font-bold text-amber-600 dark:text-amber-400">{{ conversionRate }}%</p>
       </div>
 
       <div class="dashboard-card">
-        <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Avg Lead Score</h3>
+        <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">平均评分</h3>
         <p class="text-3xl font-bold text-blue-600 dark:text-blue-400">{{ averageLeadScore }}</p>
       </div>
     </div>
@@ -37,26 +37,26 @@
           <!-- Filters -->
           <div class="flex items-center gap-4">
             <select v-model="filters.status" class="input-field max-w-[150px]">
-              <option value="">All Status</option>
-              <option value="new">New</option>
-              <option value="contacted">Contacted</option>
-              <option value="qualified">Qualified</option>
-              <option value="converted">Converted</option>
-              <option value="lost">Lost</option>
+              <option value="">所有状态</option>
+              <option value="new">新建</option>
+              <option value="contacted">已联系</option>
+              <option value="qualified">已确认</option>
+              <option value="converted">已转化</option>
+              <option value="lost">已流失</option>
             </select>
             <select v-model="filters.source" class="input-field max-w-[150px]">
-              <option value="">All Sources</option>
-              <option value="direct">Direct</option>
-              <option value="referral">Referral</option>
-              <option value="web">Website</option>
-              <option value="social">Social Media</option>
+              <option value="">所有来源</option>
+              <option value="direct">直接</option>
+              <option value="referral">推荐</option>
+              <option value="web">网站</option>
+              <option value="social">社交媒体</option>
             </select>
           </div>
           <!-- Search -->
           <div class="relative">
             <input type="text" 
                    v-model="searchQuery"
-                   placeholder="Search leads..."
+                   placeholder="搜索潜在客户..."
                    class="input-field pl-10 w-full sm:w-64">
             <svg xmlns="http://www.w3.org/2000/svg" 
                  class="h-5 w-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
@@ -72,13 +72,13 @@
         <table class="min-w-full divide-y divide-gray-200 dark:divide-dark-200">
           <thead>
             <tr>
-              <th class="table-header">Name</th>
-              <th class="table-header">Company</th>
-              <th class="table-header">Email</th>
-              <th class="table-header">Status</th>
-              <th class="table-header">Source</th>
-              <th class="table-header">Score</th>
-              <th class="table-header text-right">Actions</th>
+              <th class="table-header">姓名</th>
+              <th class="table-header">公司</th>
+              <th class="table-header">邮箱</th>
+              <th class="table-header">状态</th>
+              <th class="table-header">来源</th>
+              <th class="table-header">评分</th>
+              <th class="table-header text-right">操作</th>
             </tr>
           </thead>
           <tbody class="bg-white dark:bg-dark-100 divide-y divide-gray-200 dark:divide-dark-200">
@@ -96,12 +96,19 @@
               </td>
               <td class="table-cell">
                 <span :class="getStatusClass(lead.status)" class="badge">
-                  {{ lead.status }}
+                  {{ lead.status === 'new' ? '新建' : 
+                     lead.status === 'contacted' ? '已联系' :
+                     lead.status === 'qualified' ? '已确认' :
+                     lead.status === 'converted' ? '已转化' :
+                     lead.status === 'lost' ? '已流失' : lead.status }}
                 </span>
               </td>
               <td class="table-cell">
                 <span class="badge bg-gray-100 dark:bg-dark-200 text-gray-700 dark:text-gray-300">
-                  {{ lead.source }}
+                  {{ lead.source === 'direct' ? '直接' :
+                     lead.source === 'referral' ? '推荐' :
+                     lead.source === 'web' ? '网站' :
+                     lead.source === 'social' ? '社交媒体' : lead.source }}
                 </span>
               </td>
               <td class="table-cell">
@@ -120,15 +127,15 @@
                 <button @click="convertToDeal(lead)" 
                         v-if="lead.status !== 'converted'"
                         class="text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 font-medium mr-3">
-                  Convert
+                  转化
                 </button>
                 <button @click="editLead(lead)" 
                         class="text-violet-600 dark:text-violet-400 hover:text-violet-700 dark:hover:text-violet-300 font-medium mr-3">
-                  Edit
+                  编辑
                 </button>
                 <button @click="deleteLead(lead.id)" 
                         class="text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 font-medium">
-                  Delete
+                  删除
                 </button>
               </td>
             </tr>
@@ -163,73 +170,73 @@
             >
               <DialogPanel class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white dark:bg-dark-100 p-6 shadow-xl transition-all">
                 <DialogTitle as="h3" class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">
-                  {{ editingLead ? 'Edit Lead' : 'Add New Lead' }}
+                  {{ editingLead ? '编辑潜在客户' : '添加新潜在客户' }}
                 </DialogTitle>
 
                 <form @submit.prevent="saveLead" class="space-y-4">
                   <div class="grid grid-cols-2 gap-4">
                     <div>
-                      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">First Name</label>
+                      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">名字</label>
                       <input type="text" v-model="leadForm.firstName" required class="input-field">
                     </div>
                     <div>
-                      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Last Name</label>
+                      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">姓氏</label>
                       <input type="text" v-model="leadForm.lastName" required class="input-field">
                     </div>
                   </div>
 
                   <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">邮箱</label>
                     <input type="email" v-model="leadForm.email" required class="input-field">
                   </div>
 
                   <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Phone</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">电话</label>
                     <input type="tel" v-model="leadForm.phone" class="input-field">
                   </div>
 
                   <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Company</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">公司</label>
                     <input type="text" v-model="leadForm.company" class="input-field">
                   </div>
 
                   <div class="grid grid-cols-2 gap-4">
                     <div>
-                      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Status</label>
+                      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">状态</label>
                       <select v-model="leadForm.status" required class="input-field">
-                        <option value="new">New</option>
-                        <option value="contacted">Contacted</option>
-                        <option value="qualified">Qualified</option>
-                        <option value="lost">Lost</option>
+                        <option value="new">新建</option>
+                        <option value="contacted">已联系</option>
+                        <option value="qualified">已确认</option>
+                        <option value="lost">已流失</option>
                       </select>
                     </div>
                     <div>
-                      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Source</label>
+                      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">来源</label>
                       <select v-model="leadForm.source" required class="input-field">
-                        <option value="direct">Direct</option>
-                        <option value="referral">Referral</option>
-                        <option value="web">Website</option>
-                        <option value="social">Social Media</option>
+                        <option value="direct">直接</option>
+                        <option value="referral">推荐</option>
+                        <option value="web">网站</option>
+                        <option value="social">社交媒体</option>
                       </select>
                     </div>
                   </div>
 
                   <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Lead Score (0-100)</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">评分 (0-100)</label>
                     <input type="number" v-model="leadForm.score" min="0" max="100" required class="input-field">
                   </div>
 
                   <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Notes</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">备注</label>
                     <textarea v-model="leadForm.notes" rows="3" class="input-field"></textarea>
                   </div>
 
                   <div class="mt-6 flex justify-end space-x-3">
                     <button type="button" @click="closeModal" class="btn-secondary">
-                      Cancel
+                      取消
                     </button>
                     <button type="submit" class="btn-primary">
-                      {{ editingLead ? 'Update' : 'Add' }}
+                      {{ editingLead ? '更新' : '添加' }}
                     </button>
                   </div>
                 </form>
@@ -266,30 +273,30 @@
             >
               <DialogPanel class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white dark:bg-dark-100 p-6 shadow-xl transition-all">
                 <DialogTitle as="h3" class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">
-                  Convert Lead to Deal
+                  转化为商机
                 </DialogTitle>
 
                 <form @submit.prevent="confirmConversion" class="space-y-4">
                   <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Deal Value</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">商机价值</label>
                     <input type="number" v-model="convertForm.value" min="0" step="0.01" required class="input-field">
                   </div>
 
                   <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Priority</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">优先级</label>
                     <select v-model="convertForm.priority" required class="input-field">
-                      <option value="low">Low</option>
-                      <option value="medium">Medium</option>
-                      <option value="high">High</option>
+                      <option value="low">低</option>
+                      <option value="medium">中</option>
+                      <option value="high">高</option>
                     </select>
                   </div>
 
                   <div class="mt-6 flex justify-end space-x-3">
                     <button type="button" @click="closeConvertModal" class="btn-secondary">
-                      Cancel
+                      取消
                     </button>
                     <button type="submit" class="btn-primary">
-                      Convert to Deal
+                      转化为商机
                     </button>
                   </div>
                 </form>
@@ -384,7 +391,7 @@ const editLead = (lead) => {
 }
 
 const deleteLead = (id) => {
-  if (confirm('Are you sure you want to delete this lead?')) {
+  if (confirm('确定要删除这个潜在客户吗？')) {
     leadsStore.deleteLead(id)
   }
 }

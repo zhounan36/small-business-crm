@@ -1,88 +1,88 @@
 <template>
   <div>
-    <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-8">Dashboard</h1>
+    <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-8">仪表板</h1>
     
     <!-- Summary Cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-4">
       <!-- Existing summary cards... -->
       <div class="dashboard-card">
-        <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Total Contacts</h3>
+        <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">总联系人</h3>
         <div class="flex items-end justify-between">
           <p class="text-3xl font-bold text-violet-600 dark:text-violet-400">{{ contactsStore.totalContacts }}</p>
           <span class="text-sm text-gray-500 dark:text-gray-400">
-            Active: {{ contactsStore.activeContacts }}
+            活跃: {{ contactsStore.activeContacts }}
           </span>
         </div>
       </div>
       
       <div class="dashboard-card">
-        <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Total Deal Value</h3>
+        <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">总交易价值</h3>
         <div class="flex items-end justify-between">
-          <p class="text-3xl font-bold text-emerald-600 dark:text-emerald-400">${{ dealsStore.totalValue.toLocaleString() }}</p>
+          <p class="text-3xl font-bold text-emerald-600 dark:text-emerald-400">¥{{ dealsStore.totalValue.toLocaleString() }}</p>
           <span class="text-sm text-gray-500 dark:text-gray-400">
-            Deals: {{ dealsStore.deals.length }}
+            交易: {{ dealsStore.deals.length }}
           </span>
         </div>
       </div>
       
       <div class="dashboard-card">
-        <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Tasks</h3>
+        <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">任务</h3>
         <div class="flex items-end justify-between">
           <p class="text-3xl font-bold text-amber-600 dark:text-amber-400">{{ tasksStore.pendingTasks.length }}</p>
           <span class="text-sm text-gray-500 dark:text-gray-400">
-            Done: {{ tasksStore.completedTasks.length }}
+            完成: {{ tasksStore.completedTasks.length }}
           </span>
         </div>
       </div>
 
       <div class="dashboard-card">
-        <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Deal Win Rate</h3>
+        <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">交易赢率</h3>
         <div class="flex items-end justify-between">
           <p class="text-3xl font-bold text-blue-600 dark:text-blue-400">
             {{ calculateWinRate }}%
           </p>
           <span class="text-sm text-gray-500 dark:text-gray-400">
-            Won: {{ wonDeals }}
+            赢得: {{ wonDeals }}
           </span>
         </div>
       </div>
 
       <div class="dashboard-card">
-        <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Active Leads</h3>
+        <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">活跃线索</h3>
         <div class="flex items-end justify-between">
           <p class="text-3xl font-bold text-indigo-600 dark:text-indigo-400">{{ leadsStore.activeLeads }}</p>
           <span class="text-sm text-gray-500 dark:text-gray-400">
-            Total: {{ leadsStore.totalLeads }}
+            总计: {{ leadsStore.totalLeads }}
           </span>
         </div>
       </div>
 
       <div class="dashboard-card">
-        <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Lead Conversion Rate</h3>
+        <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">线索转化率</h3>
         <div class="flex items-end justify-between">
           <p class="text-3xl font-bold text-fuchsia-600 dark:text-fuchsia-400">{{ conversionRate }}%</p>
           <span class="text-sm text-gray-500 dark:text-gray-400">
-            Converted: {{ convertedLeads }}
+            转化: {{ convertedLeads }}
           </span>
         </div>
       </div>
 
       <div class="dashboard-card">
-        <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Active Campaigns</h3>
+        <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">活跃活动</h3>
         <div class="flex items-end justify-between">
           <p class="text-3xl font-bold text-rose-600 dark:text-rose-400">{{ campaignsStore.activeCampaigns.length }}</p>
           <span class="text-sm text-gray-500 dark:text-gray-400">
-            Total: {{ campaignsStore.campaigns.length }}
+            总计: {{ campaignsStore.campaigns.length }}
           </span>
         </div>
       </div>
 
       <div class="dashboard-card">
-        <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Campaign ROI</h3>
+        <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">活动投资回报率</h3>
         <div class="flex items-end justify-between">
-          <p class="text-3xl font-bold text-teal-600 dark:text-teal-400">${{ calculateROI }}</p>
+          <p class="text-3xl font-bold text-teal-600 dark:text-teal-400">¥{{ calculateROI }}</p>
           <span class="text-sm text-gray-500 dark:text-gray-400">
-            Spent: ${{ campaignsStore.totalSpent.toLocaleString() }}
+            花费: ¥{{ campaignsStore.totalSpent.toLocaleString() }}
           </span>
         </div>
       </div>
@@ -91,16 +91,16 @@
     <!-- Opportunities Overview -->
     <div class="card p-6 dark:bg-dark-100 mb-4">
       <div class="flex justify-between items-center">
-        <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Opportunities Overview</h3>
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">机会概览</h3>
         <RouterLink to="/opportunities" class="text-sm text-violet-600 dark:text-violet-400 hover:text-violet-700 dark:hover:text-violet-300 font-medium">
-          View All
+          查看全部
         </RouterLink>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <!-- Total Opportunities -->
         <div class="flex justify-between items-center p-4 bg-gray-50 dark:bg-dark-200 rounded-lg hover:bg-yellow-100 dark:hover:bg-dark-300 transition-all duration-200">
           <div>
-            <p class="ext-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Total Opportunities</p>
+            <p class="ext-sm font-medium text-gray-500 dark:text-gray-400 mb-1">总机会</p>
             <p class="text-3xl font-bold text-fuchsia-600 dark:text-fuchsia-400">{{ opportunitiesStore.totalOpportunities }}</p>
           </div>
           <div class="text-gray-600 dark:text-gray-400">
@@ -110,7 +110,7 @@
         <!-- High Priority Opportunities -->
         <div class="flex justify-between items-center p-4 bg-yellow-50 dark:bg-dark-200 rounded-lg hover:bg-yellow-100 dark:hover:bg-dark-300 transition-all duration-200">
           <div>
-            <p class="ext-sm font-medium text-gray-500 dark:text-gray-400 mb-1">High Priority Opportunities</p>
+            <p class="ext-sm font-medium text-gray-500 dark:text-gray-400 mb-1">高优先级机会</p>
             <p class="text-3xl font-bold text-green-600 dark:text-green-400">{{ opportunitiesStore.highPriority }}</p>
           </div>
           <div class="text-yellow-600 dark:text-yellow-400">
@@ -120,8 +120,8 @@
         <!-- Average Opportunity Value -->
         <div class="flex justify-between items-center p-4 bg-green-50 dark:bg-dark-200 rounded-lg hover:bg-green-100 dark:hover:bg-dark-300 transition-all duration-200">
           <div>
-            <p class="ext-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Average Opportunity Value</p>
-            <p class="text-3xl font-bold text-blue-600 dark:text-blue-400">${{ opportunitiesStore.averageOpportunityValue }}</p>
+            <p class="ext-sm font-medium text-gray-500 dark:text-gray-400 mb-1">平均机会价值</p>
+            <p class="text-3xl font-bold text-blue-600 dark:text-blue-400">¥{{ opportunitiesStore.averageOpportunityValue }}</p>
           </div>
           <div class="text-green-600 dark:text-green-400">
             <i class="fa fa-dollar-sign"></i> <!-- Icon for Average Value -->
@@ -130,7 +130,7 @@
         <!-- Win Rate -->
         <div class="flex justify-between items-center p-4 bg-blue-50 dark:bg-dark-200 rounded-lg hover:bg-blue-100 dark:hover:bg-dark-300 transition-all duration-200">
           <div>
-            <p class="ext-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Win Rate</p>
+            <p class="ext-sm font-medium text-gray-500 dark:text-gray-400 mb-1">赢率</p>
             <p class="text-3xl font-bold text-yellow-600 dark:text-yellow-400">{{ opportunitiesStore.winRate }}%</p>
           </div>
           <div class="text-blue-600 dark:text-blue-400">
@@ -145,9 +145,9 @@
       <!-- This Week's Meetings -->
       <div class="card p-6 dark:bg-dark-100">
         <div class="flex justify-between items-center mb-4">
-          <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">This Week's Meetings</h3>
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">本周会议</h3>
           <RouterLink to="/calendar" class="text-sm text-violet-600 dark:text-violet-400 hover:text-violet-700 dark:hover:text-violet-300 font-medium">
-            View Calendar
+            查看日历
           </RouterLink>
         </div>
         <div class="space-y-4">
@@ -161,7 +161,7 @@
                 </p>
                 <span class="text-gray-400 dark:text-gray-500">•</span>
                 <p class="text-sm text-gray-600 dark:text-gray-400">
-                  {{ meeting.location || 'No location' }}
+                  {{ meeting.location || '无地点' }}
                 </p>
               </div>
               <div class="flex flex-wrap gap-1 mt-2">
@@ -178,7 +178,7 @@
           </div>
           <div v-if="meetingsStore.thisWeeksMeetings.length === 0" 
                class="text-center py-8 text-gray-500 dark:text-gray-400">
-            No meetings scheduled this week
+            本周没有安排会议
           </div>
         </div>
       </div>
@@ -186,9 +186,9 @@
       <!-- Recent Deals -->
       <div class="card p-6 dark:bg-dark-100">
         <div class="flex justify-between items-center mb-4">
-          <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Recent Deals</h3>
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">最近的交易</h3>
           <RouterLink to="/deals" class="text-sm text-violet-600 dark:text-violet-400 hover:text-violet-700 dark:hover:text-violet-300 font-medium">
-            View All
+            查看全部
           </RouterLink>
         </div>
         <div class="space-y-4">
@@ -197,7 +197,7 @@
             <div>
               <p class="font-medium text-gray-900 dark:text-gray-100">{{ deal.name }}</p>
               <div class="flex items-center gap-2 mt-1">
-                <p class="text-sm text-gray-600 dark:text-gray-400">${{ deal.value.toLocaleString() }}</p>
+                <p class="text-sm text-gray-600 dark:text-gray-400">¥{{ deal.value.toLocaleString() }}</p>
                 <span class="text-gray-400 dark:text-gray-500">•</span>
                 <p class="text-sm text-gray-600 dark:text-gray-400">{{ deal.contact }}</p>
               </div>
@@ -213,7 +213,7 @@
           </div>
           <div v-if="dealsStore.recentDeals.length === 0" 
                class="text-center py-8 text-gray-500 dark:text-gray-400">
-            No deals yet
+            还没有交易
           </div>
         </div>
       </div>
@@ -221,9 +221,9 @@
       <!-- Recent Leads -->
       <div class="card p-6 dark:bg-dark-100">
         <div class="flex justify-between items-center mb-4">
-          <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Recent Leads</h3>
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">最近的线索</h3>
           <RouterLink to="/leads" class="text-sm text-violet-600 dark:text-violet-400 hover:text-violet-700 dark:hover:text-violet-300 font-medium">
-            View All
+            查看全部
           </RouterLink>
         </div>
         <div class="space-y-4">
@@ -232,7 +232,7 @@
             <div>
               <p class="font-medium text-gray-900 dark:text-gray-100">{{ lead.firstName }} {{ lead.lastName }}</p>
               <div class="flex items-center gap-2 mt-1">
-                <p class="text-sm text-gray-600 dark:text-gray-400">{{ lead.company || 'No Company' }}</p>
+                <p class="text-sm text-gray-600 dark:text-gray-400">{{ lead.company || '无公司' }}</p>
                 <span class="text-gray-400 dark:text-gray-500">•</span>
                 <p class="text-sm text-gray-600 dark:text-gray-400">{{ lead.source }}</p>
               </div>
@@ -243,7 +243,7 @@
           </div>
           <div v-if="leadsStore.recentLeads.length === 0" 
                class="text-center py-8 text-gray-500 dark:text-gray-400">
-            No leads yet
+            还没有线索
           </div>
         </div>
       </div>

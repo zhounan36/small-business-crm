@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="flex justify-between items-center mb-6">
-      <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Notes</h1>
+      <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">笔记</h1>
       <button @click="showAddModal = true" class="btn-primary">
-        Add Note
+        添加笔记
       </button>
     </div>
 
@@ -44,7 +44,7 @@
                 stroke-width="2" 
                 d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
         </svg>
-        <p class="text-gray-500 dark:text-gray-400">No notes yet. Click "Add Note" to create one.</p>
+        <p class="text-gray-500 dark:text-gray-400">暂无笔记。点击"添加笔记"创建一个新的笔记。</p>
       </div>
     </div>
 
@@ -74,17 +74,17 @@
             >
               <DialogPanel class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white dark:bg-dark-100 p-6 shadow-xl transition-all">
                 <DialogTitle as="h3" class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">
-                  {{ editingNote ? 'Edit Note' : 'Add New Note' }}
+                  {{ editingNote ? '编辑笔记' : '添加新笔记' }}
                 </DialogTitle>
 
                 <form @submit.prevent="saveNote" class="space-y-4">
                   <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Title</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">标题</label>
                     <input type="text" v-model="noteForm.title" required class="input-field">
                   </div>
 
                   <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Content</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">内容</label>
                     <textarea v-model="noteForm.content" 
                               rows="6" 
                               required 
@@ -93,10 +93,10 @@
 
                   <div class="mt-6 flex justify-end space-x-3">
                     <button type="button" @click="closeModal" class="btn-secondary">
-                      Cancel
+                      取消
                     </button>
                     <button type="submit" class="btn-primary">
-                      {{ editingNote ? 'Update' : 'Add' }}
+                      {{ editingNote ? '更新' : '添加' }}
                     </button>
                   </div>
                 </form>
@@ -130,7 +130,7 @@ const editNote = (note) => {
 }
 
 const deleteNote = (id) => {
-  if (confirm('Are you sure you want to delete this note?')) {
+  if (confirm('确定要删除这个笔记吗？')) {
     notesStore.deleteNote(id)
   }
 }

@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="flex justify-between items-center mb-6">
-      <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Deals</h1>
+      <h1 class="text-2xl font-bold text-gray-900 dark:text-white">交易</h1>
       <button @click="showAddModal = true" class="btn-primary">
-        Add Deal
+        添加交易
       </button>
     </div>
 
@@ -13,11 +13,11 @@
         <table class="min-w-full divide-y divide-gray-200">
           <thead>
             <tr>
-              <th class="table-header">Name</th>
-              <th class="table-header">Value</th>
-              <th class="table-header">Status</th>
-              <th class="table-header">Contact</th>
-              <th class="table-header text-right">Actions</th>
+              <th class="table-header">名称</th>
+              <th class="table-header">价值</th>
+              <th class="table-header">状态</th>
+              <th class="table-header">联系人</th>
+              <th class="table-header text-right">操作</th>
             </tr>
           </thead>
           <tbody class="bg-white divide-y divide-gray-200">
@@ -27,18 +27,18 @@
               <td class="table-cell dark:text-black">${{ deal.value.toLocaleString() }}</td>
               <td class="table-cell dark:text-black">
                 <span :class="getStatusClass(deal.status)" class="badge">
-                  {{ deal.status }}
+                  {{ getTranslatedStatus(deal.status) }}
                 </span>
               </td>
               <td class="table-cell text-gray-600 dark:text-black">{{ deal.contact }}</td>
               <td class="table-cell text-right">
                 <button @click="editDeal(deal)" 
                         class="text-blue-600 hover:text-blue-800 font-medium mr-3">
-                  Edit
+                  编辑
                 </button>
                 <button @click="deleteDeal(deal.id)" 
                         class="text-red-600 hover:text-red-800 font-medium">
-                  Delete
+                  删除
                 </button>
               </td>
             </tr>
@@ -73,32 +73,32 @@
             >
               <DialogPanel class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 shadow-xl transition-all">
                 <DialogTitle as="h3" class="text-lg font-semibold text-gray-900 mb-6">
-                  {{ editingDeal ? 'Edit Deal' : 'Add New Deal' }}
+                  {{ editingDeal ? '编辑交易' : '添加新交易' }}
                 </DialogTitle>
 
                 <form @submit.prevent="saveDeal" class="space-y-4">
                   <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">名称</label>
                     <input type="text" v-model="dealForm.name" required class="input-field">
                   </div>
 
                   <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Value</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">价值</label>
                     <input type="number" v-model="dealForm.value" required min="0" step="0.01" class="input-field">
                   </div>
 
                   <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">状态</label>
                     <select v-model="dealForm.status" required class="input-field">
-                      <option value="new">New</option>
-                      <option value="in-progress">In Progress</option>
-                      <option value="won">Won</option>
-                      <option value="lost">Lost</option>
+                      <option value="new">新建</option>
+                      <option value="in-progress">进行中</option>
+                      <option value="won">已赢得</option>
+                      <option value="lost">已失去</option>
                     </select>
                   </div>
 
                   <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Contact</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">联系人</label>
                     <select v-model="dealForm.contact" required class="input-field">
                       <option v-for="contact in contactsStore.contacts" :key="contact.id" :value="contact.name">
                         {{ contact.name }}
@@ -108,10 +108,10 @@
 
                   <div class="mt-6 flex justify-end space-x-3">
                     <button type="button" @click="closeModal" class="btn-secondary">
-                      Cancel
+                      取消
                     </button>
                     <button type="submit" class="btn-primary">
-                      {{ editingDeal ? 'Update' : 'Add' }}
+                      {{ editingDeal ? '更新' : '添加' }}
                     </button>
                   </div>
                 </form>
@@ -151,6 +151,17 @@ const getStatusClass = (status) => {
   return classes[status] || 'bg-gray-100 text-gray-800'
 }
 
+// 添加一个新函数来翻译状态文本
+const getTranslatedStatus = (status) => {
+  const translations = {
+    'new': '新建',
+    'in-progress': '进行中',
+    'won': '已赢得',
+    'lost': '已失去'
+  }
+  return translations[status] || status
+}
+
 const editDeal = (deal) => {
   editingDeal.value = deal
   dealForm.value = { ...deal }
@@ -158,7 +169,7 @@ const editDeal = (deal) => {
 }
 
 const deleteDeal = (id) => {
-  if (confirm('Are you sure you want to delete this deal?')) {
+  if (confirm('您确定要删除此交易吗？')) {
     dealsStore.deleteDeal(id)
   }
 }

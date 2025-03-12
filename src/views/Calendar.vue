@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="flex justify-between items-center mb-6">
-      <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Calendar</h1>
+      <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">日历</h1>
       <button @click="showAddModal = true" class="btn-primary">
-        Schedule Meeting
+        安排会议
       </button>
     </div>
 
@@ -41,62 +41,62 @@
             >
               <DialogPanel class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white dark:bg-dark-100 p-6 shadow-xl transition-all">
                 <DialogTitle as="h3" class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">
-                  {{ editingMeeting ? 'Edit Meeting' : 'Schedule New Meeting' }}
+                  {{ editingMeeting ? '编辑会议' : '安排新会议' }}
                 </DialogTitle>
 
                 <form @submit.prevent="saveMeeting" class="space-y-4">
                   <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Title</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">标题</label>
                     <input type="text" v-model="meetingForm.title" required class="input-field">
                   </div>
 
                   <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Description</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">描述</label>
                     <textarea v-model="meetingForm.description" rows="3" class="input-field"></textarea>
                   </div>
 
                   <div class="grid grid-cols-2 gap-4">
                     <div>
-                      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Start</label>
+                      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">开始时间</label>
                       <input type="datetime-local" v-model="meetingForm.start" required class="input-field">
                     </div>
                     <div>
-                      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">End</label>
+                      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">结束时间</label>
                       <input type="datetime-local" v-model="meetingForm.end" required class="input-field">
                     </div>
                   </div>
 
                   <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Location</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">地点</label>
                     <input type="text" v-model="meetingForm.location" class="input-field">
                   </div>
 
                   <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Attendees</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">参与者</label>
                     <select v-model="meetingForm.attendees" multiple class="input-field h-32">
                       <option v-for="contact in contactsStore.contacts" :key="contact.id" :value="contact.name">
                         {{ contact.name }}
                       </option>
                     </select>
-                    <p class="mt-1 text-sm text-gray-500">Hold Ctrl/Cmd to select multiple attendees</p>
+                    <p class="mt-1 text-sm text-gray-500">按住 Ctrl/Cmd 键选择多个参与者</p>
                   </div>
 
                   <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Status</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">状态</label>
                     <select v-model="meetingForm.status" required class="input-field">
-                      <option value="scheduled">Scheduled</option>
-                      <option value="in-progress">In Progress</option>
-                      <option value="completed">Completed</option>
-                      <option value="cancelled">Cancelled</option>
+                      <option value="scheduled">已安排</option>
+                      <option value="in-progress">进行中</option>
+                      <option value="completed">已完成</option>
+                      <option value="cancelled">已取消</option>
                     </select>
                   </div>
 
                   <div class="mt-6 flex justify-end space-x-3">
                     <button type="button" @click="closeModal" class="btn-secondary">
-                      Cancel
+                      取消
                     </button>
                     <button type="submit" class="btn-primary">
-                      {{ editingMeeting ? 'Update' : 'Schedule' }}
+                      {{ editingMeeting ? '更新' : '安排' }}
                     </button>
                   </div>
                 </form>
@@ -139,14 +139,14 @@ const calendarOptions = {
   plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
   initialView: 'dayGridMonth',
   headerToolbar: {
-    left: '', // No content on the left
-    center: 'title', // Title (Month and Year) at the top center
-    right: '' // No content on the right
+    left: '', // 左侧无内容
+    center: 'title', // 标题（月份和年份）在顶部居中
+    right: '' // 右侧无内容
   },
   footerToolbar: {
-    left: 'dayGridMonth,timeGridWeek,timeGridDay', // View buttons (Month/Week/Day) on top of arrows
-    center: '', // Leave the center empty
-    right: 'prev,next today' // Navigation arrows (Prev/Next/Today) on the bottom right
+    left: 'dayGridMonth,timeGridWeek,timeGridDay', // 视图按钮（月/周/日）在箭头上方
+    center: '', // 中间留空
+    right: 'prev,next today' // 导航箭头（上一个/下一个/今天）在右下角
   },
   events: meetingsStore.getCalendarEvents,
   editable: true,

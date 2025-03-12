@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="flex justify-between items-center mb-6">
-      <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Tasks</h1>
+      <h1 class="text-2xl font-bold text-gray-900 dark:text-white">任务</h1>
       <button @click="showAddModal = true" class="btn-primary">
-        Add Task
+        添加任务
       </button>
     </div>
 
@@ -11,7 +11,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       <!-- Pending Tasks -->
       <div class="card p-6">
-        <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Pending Tasks</h2>
+        <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">待办任务</h2>
         <div class="space-y-4">
           <div v-for="task in tasksStore.pendingTasks" :key="task.id" 
                class="group flex items-start p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-200">
@@ -23,20 +23,20 @@
               <div class="flex justify-between items-start">
                 <div>
                   <p class="font-medium text-gray-900">{{ task.title }}</p>
-                  <p class="text-sm text-gray-600 mt-1">Due: {{ formatDate(task.dueDate) }}</p>
+                  <p class="text-sm text-gray-600 mt-1">截止日期: {{ formatDate(task.dueDate) }}</p>
                   <p class="text-sm text-gray-600 mt-1">{{ task.description }}</p>
                   <p v-if="task.contact" class="text-sm text-gray-500 mt-1">
-                    Contact: {{ task.contact }}
+                    联系人: {{ task.contact }}
                   </p>
                 </div>
                 <div class="flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                   <button @click="editTask(task)" 
                           class="text-blue-600 hover:text-blue-800 font-medium">
-                    Edit
+                    编辑
                   </button>
                   <button @click="deleteTask(task.id)" 
                           class="text-red-600 hover:text-red-800 font-medium">
-                    Delete
+                    删除
                   </button>
                 </div>
               </div>
@@ -44,14 +44,14 @@
           </div>
           <div v-if="tasksStore.pendingTasks.length === 0" 
                class="text-center py-8 text-gray-500">
-            No pending tasks
+            没有待办任务
           </div>
         </div>
       </div>
 
       <!-- Completed Tasks -->
       <div class="card p-6">
-        <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Completed Tasks</h2>
+        <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">已完成任务</h2>
         <div class="space-y-4">
           <div v-for="task in tasksStore.completedTasks" :key="task.id" 
                class="group flex items-start p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-200">
@@ -63,18 +63,18 @@
               <div class="flex justify-between items-start">
                 <div>
                   <p class="font-medium text-gray-500 line-through">{{ task.title }}</p>
-                  <p class="text-sm text-gray-500 mt-1">Completed: {{ formatDate(task.completedAt) }}</p>
+                  <p class="text-sm text-gray-500 mt-1">完成时间: {{ formatDate(task.completedAt) }}</p>
                 </div>
                 <button @click="deleteTask(task.id)" 
                         class="text-red-600 hover:text-red-800 font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                  Delete
+                  删除
                 </button>
               </div>
             </div>
           </div>
           <div v-if="tasksStore.completedTasks.length === 0" 
                class="text-center py-8 text-gray-500">
-            No completed tasks
+            没有已完成任务
           </div>
         </div>
       </div>
@@ -106,29 +106,29 @@
             >
               <DialogPanel class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 shadow-xl transition-all">
                 <DialogTitle as="h3" class="text-lg font-semibold text-gray-900 mb-6">
-                  {{ editingTask ? 'Edit Task' : 'Add New Task' }}
+                  {{ editingTask ? '编辑任务' : '添加新任务' }}
                 </DialogTitle>
 
                 <form @submit.prevent="saveTask" class="space-y-4">
                   <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Title</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">标题</label>
                     <input type="text" v-model="taskForm.title" required class="input-field">
                   </div>
 
                   <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">描述</label>
                     <textarea v-model="taskForm.description" rows="3" class="input-field"></textarea>
                   </div>
 
                   <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Due Date</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">截止日期</label>
                     <input type="date" v-model="taskForm.dueDate" required class="input-field">
                   </div>
 
                   <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Related Contact</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">相关联系人</label>
                     <select v-model="taskForm.contact" class="input-field">
-                      <option value="">None</option>
+                      <option value="">无</option>
                       <option v-for="contact in contactsStore.contacts" :key="contact.id" :value="contact.name">
                         {{ contact.name }}
                       </option>
@@ -137,10 +137,10 @@
 
                   <div class="mt-6 flex justify-end space-x-3">
                     <button type="button" @click="closeModal" class="btn-secondary">
-                      Cancel
+                      取消
                     </button>
                     <button type="submit" class="btn-primary">
-                      {{ editingTask ? 'Update' : 'Add' }}
+                      {{ editingTask ? '更新' : '添加' }}
                     </button>
                   </div>
                 </form>
@@ -186,7 +186,7 @@ const editTask = (task) => {
 }
 
 const deleteTask = (id) => {
-  if (confirm('Are you sure you want to delete this task?')) {
+  if (confirm('确定要删除这个任务吗？')) {
     tasksStore.deleteTask(id)
   }
 }
