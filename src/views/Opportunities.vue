@@ -29,7 +29,7 @@
                 <td class="table-cell">
                   <span :class="getPriorityClass(opportunity.priority)" class="badge">{{ getPriorityTranslation(opportunity.priority) }}</span>
                 </td>
-                <td class="table-cell">${{ opportunity.value.toFixed(2) }}</td>
+                <td class="table-cell">￥{{ opportunity.value.toFixed(2) }}</td>
                 <td class="table-cell text-right">
                   <button @click="openEditModal(opportunity)" class="text-violet-600 hover:text-violet-700 font-medium mr-3">
                     编辑

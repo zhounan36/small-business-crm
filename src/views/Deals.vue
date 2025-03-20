@@ -24,7 +24,7 @@
             <tr v-for="deal in dealsStore.deals" :key="deal.id"
                 class="hover:bg-gray-50 transition-colors duration-200">
               <td class="table-cell font-medium dark:text-black">{{ deal.name }}</td>
-              <td class="table-cell dark:text-black">${{ deal.value.toLocaleString() }}</td>
+              <td class="table-cell dark:text-black">￥{{ deal.value.toLocaleString() }}</td>
               <td class="table-cell dark:text-black">
                 <span :class="getStatusClass(deal.status)" class="badge">
                   {{ getTranslatedStatus(deal.status) }}

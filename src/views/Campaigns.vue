@@ -19,7 +19,7 @@
       <div class="dashboard-card">
         <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">总支出</h3>
         <p class="text-3xl font-bold text-emerald-600 dark:text-emerald-400">
-          ${{ campaignsStore.totalSpent.toLocaleString() }}
+          ￥{{ campaignsStore.totalSpent.toLocaleString() }}
         </p>
       </div>
       
@@ -33,7 +33,7 @@
       <div class="dashboard-card">
         <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">平均转化成本</h3>
         <p class="text-3xl font-bold text-blue-600 dark:text-blue-400">
-          ${{ calculateCPC }}
+          ￥{{ calculateCPC }}
         </p>
       </div>
     </div>
@@ -109,10 +109,10 @@
                 </span>
               </td>
               <td class="table-cell text-gray-600 dark:text-gray-400">
-                ${{ campaign.budget.toLocaleString() }}
+                ￥{{ campaign.budget.toLocaleString() }}
               </td>
               <td class="table-cell text-gray-600 dark:text-gray-400">
-                ${{ campaign.metrics.spent.toLocaleString() }}
+                ￥{{ campaign.metrics.spent.toLocaleString() }}
               </td>
               <td class="table-cell">
                 <div class="flex items-center gap-2">
